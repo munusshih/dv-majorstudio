@@ -1,62 +1,64 @@
 
-let textiles;
+let unesco;
 let allPlaces =[];
-d3.json('data/data.json').then(function(data){ 
-  textiles = data;
+d3.json('data/data.json').then(function(data){
+  unesco = data;
   analyzeData();
   displayData();
 });
 
 function analyzeData(){
-  let placeNow;
+  unesco = unesco.Goal1
 
-  // go through the list of textiles
-  textiles.forEach(function(n) {
-    placeNow = n.place;
-    let match = false;
+  // go through the array of data
+  unesco.forEach(function(n) {
+    match = false
+    countryName = n.GeoAreaName;
+    value = n.Value;
+    age = n.Age;
+    sex = n.Sex
 
-    // see if their location already exists the allplaces array
     allPlaces.forEach(function(p){
-      if(p.name==placeNow){
-        p.count++;
-        match=true;
+      if(p.name === countryName){
+        match = true;
       }
     });
-    // if not create a new entry for that place name
-      if(!match){
-        allPlaces.push({
-          name: placeNow,
-          count:1
-        });
-      }
+    // check if it matches what we need
+    if(!match && age==="ALLAGE" && sex==="BOTHSEX"){
+      allPlaces.push({
+        name: countryName,
+        count: value
+      });
+    }
   });
   // sort by amount of items in the list
-  allPlaces.sort((a, b) => (a.count < b.count) ? 1 : -1)
-  // console.log(allPlaces)
+  allPlaces.sort( (a,b) => a.count-b.count )
+  allPlaces.reverse();
+
+  console.log(allPlaces)
 }
 
 function displayData(){
-  
+
   // define dimensions and margins for the graphic
   const margin = ({top: 100, right: 50, bottom: 100, left: 80})
-  const width = 1400;
-  const height = 700;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
-  // let's define our scales. 
+  // let's define our scales.
   // yScale corresponds with amount of textiles per country
   const yScale = d3.scaleLinear()
-                   .domain([0, d3.max(allPlaces, d => d.count)+1])
-                   .range([height - margin.bottom, margin.top]); 
+                   .domain([0, d3.max(allPlaces, d => parseInt(d.count))+1])
+                   .range([height - margin.bottom, margin.top]);
 
   // xScale corresponds with country names
   const xScale = d3.scaleBand()
                  .domain(allPlaces.map(d => d.name))
                 .range([margin.left, width - margin.right])
 
-
   const sequentialScale = d3.scaleSequential()
-                            .domain([0, d3.max(allPlaces, d => d.count)])
-                            .interpolator(d3.interpolateWarm);
+                            .domain([0, d3.max(allPlaces, d => parseInt(d.count))])
+                            .interpolator(d3.interpolateRdYlBu);
 
   // create an svg container from scratch
   const svg = d3.select('body')
@@ -74,10 +76,10 @@ function displayData(){
      .attr('height', function(d){return yScale(0)-yScale(d.count) })
      .attr('width', function(d){return xScale.bandwidth() - 2 })
      .style('fill', function(d) {return sequentialScale(d.count);});
- 
+
 
   // AXES
-  
+
   // Y Axis
   const yAxis =  d3.axisLeft(yScale).ticks(5)
 
@@ -87,11 +89,10 @@ function displayData(){
 
   // X Axis
   const xAxis =  d3.axisBottom(xScale).tickSize(0);
-
   svg.append('g')
   .attr('transform', `translate(0,${height - margin.bottom})`)
   .call(xAxis)
-  .selectAll('text')	
+  .selectAll('text')
   .style('text-anchor', 'end')
   .attr('dx', '-.6em')
   .attr('dy', '-0.1em')
@@ -106,5 +107,7 @@ function displayData(){
     .attr('x', margin.left)
     .attr('fill', 'black')
     .attr('text-anchor', 'start')
-    .text('Flowers in Embroidery by Country')
+    .text('Proportion of population below international poverty line (%) by Country, Source: Poverty and Inequality Portal, World Bank')
 }
+
+window.onresize = function(){ location.reload(); }
