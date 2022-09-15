@@ -11,7 +11,7 @@ Show different ways of using svg
 
 
 ---  
-## [03: D3 Smithsonian data](https://munusshih.github.io/dv-majorstudio/lab04_d3_unesco/03_d3_unesco)
+## [03: D3 Smithsonian data](https://munusshih.github.io/dv-majorstudio/lab04_d3_unesco/03_d3_UNESCO/)
 Using a json file created using the Smithsonian API to create a D3 bar graph using scales, margins and axes  
 
 ---  
