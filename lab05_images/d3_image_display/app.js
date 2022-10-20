@@ -5,10 +5,10 @@
 // load JSON using d3.json
 d3.json('./data.json')
   .then( json => {
-      // execute our 
+      // execute our
       // display images function
       displayImages(json);
-  }); 
+  });
 
 // this function creates all
 // of our DOM elements
@@ -39,7 +39,7 @@ function displayImages(json){
         .append('img')
         .attr('src', d => {
             // all our images are in the "images"
-            // folder which we will need to 
+            // folder which we will need to
             // add to our filename first
             return './images/' + d.filename
         });
@@ -55,4 +55,8 @@ function displayImages(json){
     card.append('h2')
         .attr('class', 'title')
         .text(d=>d.title);
+}
+
+for(const car of cars){
+	console.log(car.color)
 }

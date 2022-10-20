@@ -16,6 +16,7 @@ function getInput() {
 function processRita(input) {
   // change our input to a Rita string
   let rs = new RiString(input);
+  console.log(rs)
 
   // break our phrase into words:
   let words = rs.words();
@@ -24,7 +25,7 @@ function processRita(input) {
   // get part-of-speech tags
   // part-of-speech tags list: https://rednoise.org/rita/reference/RiTa/pos/index.html
   let pos = rs.pos();
-  console.log(pos);
+  // console.log(pos);
 
   // change certain part-of-speech tags
   let output = '';

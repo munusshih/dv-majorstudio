@@ -43,16 +43,15 @@ function processText(input) {
 // two functions that actually write to the DOM. We're using D3 here but could also use vanilla javascript
 
 function addText(text){
- d3.select('#app')
+ d3.select('#drawingArea')
  .append('p')
  .text(text);
 }
 
 
 function addLetterWithSize(letter, textSize){
-  d3.select('#concretePoetry')
+  d3.select('#drawingArea')
   .append('span')
-
   .text(letter)
   .style("font-size", letter.length*2+"px")
   ;

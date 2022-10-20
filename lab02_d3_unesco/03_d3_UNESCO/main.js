@@ -3,6 +3,7 @@ let unesco;
 let allPlaces =[];
 d3.json('data/data.json').then(function(data){
   unesco = data;
+  console.log(unesco)
   analyzeData();
   displayData();
 });
