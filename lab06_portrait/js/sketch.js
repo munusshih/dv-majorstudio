@@ -106,7 +106,7 @@ function displayNewData(data) {
         (d) => {
             svg.append("embed")
             // this is calling the svg that has the corressponding name w/ the attr
-                .attr("src", "svg/" + d + ".svg")
+                .attr("src", "img/" + d + ".svg")
                 .attr("class", "graphic")
         }
     )
