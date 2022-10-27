@@ -1,6 +1,6 @@
 # Baby Data Portrait
 
-[Live Demo](https://munusshih.github.io/dv-majorstudio/lab06_portrait/)
+[Live Demo](https://munusshih.github.io/dv-majorstudio/lab06_portrait/02_gallery)
 
 This is an example that shows how to use d3.js to create an interactive data portrait.
 
